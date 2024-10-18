@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5" /> <!-- Refresh every 5 seconds -->
+    <title>Ai Photobhoot</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            background-color: #000;
+        }
+
+       
+        @keyframes rotate-outer {
+            50% {
+                transform: rotate(200deg);
+            }
+        }
+
+        @keyframes rotate-inner {
+            50% {
+                transform: rotate(-400deg);
+            }
+        }
+
+        .alert-message {
+            display: none;
+            color: red;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .loading-outerr{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading-outerr">
+        <img id="captured-image" src="/static/loading.gif" alt="Captured Image" />
+    </div>
+    <div class="alert-message">
+        Image generation is taking longer than expected. Please try again later.
+    </div>
+    <script>
+        setTimeout(function () {
+            window.location.href = "/check_status";
+        }, 5000);
+
+        setTimeout(function () {
+            var alertMessage = document.querySelector(".alert-message");
+            alertMessage.style.display = "block"; // Show the alert message
+        }, 30000); // 30 seconds (adjust as needed)
+    </script>
+
+
+    
+</body>
+
+</html>

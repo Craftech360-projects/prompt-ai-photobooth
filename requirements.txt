@@ -1,0 +1,11 @@
+onnxruntime
+firebase-admin
+qrcode
+Flask
+opencv-python
+numpy
+insightface
+insightface
+Werkzeug
+mxnet-mkl
+requests
