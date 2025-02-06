@@ -1,185 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="print"
-      href="{{ url_for('static', filename='print.css') }}"
-    />
-    <title>Ai Photobhoot</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
-      body {
-        padding: 0;
-        margin: 0;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        font-family: "Poppins", sans-serif;
-        background-color: #ffffff;
-        color: #000000;
-        background-image: url(/static/aibg.png);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        display: flex;
-      }
-      .container {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        color: #ffc301;
-      }
-      .dcf {
-        background-color: transparent;
-        font-weight: bold;
-        width: 412px;
-        height: 115px;
-        border-radius: 16px;
-        font-size: 26px;
-        border: none;
-        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px,
-          rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px,
-          rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px,
-          rgba(0, 0, 0, 0.07) 0px 32px 64px;
-        background-image: url(/static/aihome.png);
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        border: none;
-        cursor: pointer;
-        margin-bottom: 30px;
-        color: transparent;
-      }
-      .btns-con {
-        width: 100%;
-        height: 15vh;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        justify-content: space-around;
-      }
-      .butnsss {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-      }
-      #printButton {
-        background-color: transparent;
-        font-weight: bold;
-        width: 700px;
-        height: 134px;
-        border-radius: 16px;
-        font-size: 26px;
-        border: none;
-        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px,
-          rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px,
-          rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px,
-          rgba(0, 0, 0, 0.07) 0px 32px 64px;
-        background-image: url(/static/aipt.png);
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        border: none;
-        cursor: pointer;
-        margin-bottom: 30px;
-      }
-      .qr-container {
-        width: 65%;
-        display: flex;
-        flex-direction: row;
-        justify-content:flex-start;
-        align-items: center;
-      }
-      .qr-container img {
-        box-shadow: rgba(67, 71, 85) 0px 0px 0.25em, rgb(0, 0, 0) 0px 0.25em 1em;
-      }
-      
-      .image-container {
-        width: 100%;
-        height: 750px;
-        display: flex;
-        justify-content: center;
-        margin-top: 80px;
-        /* background-color: #752d2d; */
-      }
-      .image-container img {
-        width: 700px;
-        height: 700px;
-        box-shadow: rgba(0, 0, 0) 0px 10px 36px 0px,
-          rgba(0, 0, 0) 0px 0px 0px 1px;
-        border-radius: 30px;
-      }
 
-      #heading {
-        color: #fff;
-        text-align: left;
-        font-size: 38px;
-        margin-left: 35px;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" media="print" href="{{ url_for('static', filename='print.css') }}" />
+  <title>Ai Photobhoot</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
-  <body>
-    {% if result_img_path_firebase %}
-    <div class="container">
-      <div class="image-container">
-        <img
-          id="imageToPrint"
-          src="{{result_img_path_firebase}}"
-          alt="Swapped Face"
-        />
-      </div>
+    body {
+      padding: 0;
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      background-image: url(/static/aibg.png);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+    }
 
-      <div class="btns-con">
-        <div class="qr-container">
-          <img
-            width="255px"
-            src="{{ url_for('static', filename='qr_code.png') }}?r={{ random_value }}"
-            alt="QR Code"
-          />
-          <h2 id="heading">Scan the QR Code <br> to Download Image</h2>
-        </div>
-        <div class="butnsss">
-            <button type="button" id="printButton" onclick="printImage()">
-            </button>
-          <button class="dcf" onclick="goHome()">
-          </button>
-        </div>
-      </div>
-      {% else %}
-      <p>Image generation is still in progress. Please wait...</p>
-      {% endif %}
+    .container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #ffc301;
+      margin-top: 172px;
+    }
+
+    .dcf {
+      background-color: transparent;
+      font-weight: bold;
+      width: 412px;
+      height: 115px;
+      border-radius: 16px;
+      font-size: 26px;
+      border: none;
+      box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px,
+        rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px,
+        rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px,
+        rgba(0, 0, 0, 0.07) 0px 32px 64px;
+      background-image: url(/static/aihome.png);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 30px;
+      color: transparent;
+    }
+
+    .btns-con {
+      width: 100%;
+      height: 15vh;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .butnsss {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #printButton {
+      background-color: transparent;
+      font-weight: bold;
+      width: 700px;
+      height: 134px;
+      border-radius: 16px;
+      font-size: 26px;
+      border: none;
+      box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px,
+        rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px,
+        rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px,
+        rgba(0, 0, 0, 0.07) 0px 32px 64px;
+      background-image: url(/static/aipt.png);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 30px;
+    }
+
+    .qr-container {
+      width: 65%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .qr-container img {
+      box-shadow: rgba(67, 71, 85) 0px 0px 0.25em, rgb(0, 0, 0) 0px 0.25em 1em;
+    }
+
+    .image-container {
+      width: 100%;
+      height: 750px;
+      display: flex;
+      justify-content: center;
+      margin-top: 80px;
+      /* background-color: #752d2d; */
+    }
+
+    .image-container img {
+      width: 700px;
+      height: 700px;
+      box-shadow: rgba(0, 0, 0) 0px 10px 36px 0px,
+        rgba(0, 0, 0) 0px 0px 0px 1px;
+      border-radius: 30px;
+    }
+
+    #heading {
+      color: #fff;
+      text-align: left;
+      font-size: 38px;
+      margin-left: 35px;
+    }
+  </style>
+</head>
+
+<body>
+  {% if result_img_path_firebase %}
+  <div class="container">
+    <div class="image-container">
+      <img id="imageToPrint" src="{{result_img_path_firebase}}" alt="Swapped Face" />
     </div>
-    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
-    <script>
-      function goHome(){
-        window.location.replace('/')
-      }
-      function printImage() {
-        const imageUrl = "{{ url_for('static', filename='print.png') }}";
-        const logoUrl = "{{ url_for('static', filename='logo.png') }}";
-        const backgroundUrl = "{{ url_for('static', filename='pbg.png') }}";
 
-        const htmlContent = `
+    <div class="btns-con">
+      <div class="qr-container">
+        <img width="255px" src="{{ url_for('static', filename='qr_code.png') }}?r={{ random_value }}" alt="QR Code" />
+        <h2 id="heading">Scan the QR Code <br> to Download Image</h2>
+      </div>
+      <div class="butnsss">
+        <button type="button" id="printButton" onclick="printImage()">
+        </button>
+        <button class="dcf" onclick="goHome()">
+        </button>
+      </div>
+    </div>
+    {% else %}
+    <p>Image generation is still in progress. Please wait...</p>
+    {% endif %}
+  </div>
+  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+  <script>
+    function goHome() {
+      window.location.replace('/')
+    }
+    function printImage() {
+      const imageUrl = "{{ url_for('static', filename='print.png') }}";
+      const logoUrl = "{{ url_for('static', filename='logo.png') }}";
+      const backgroundUrl = "{{ url_for('static', filename='pbg.png') }}";
+
+      const htmlContent = `
     <div style="text-align: center; background-size: cover; width: 100%; height: 100%;">
       <img src="${imageUrl}" style="width:800px;height:850px;margin-left:-150px;"/>
     </div>
   `;
 
-        printJS({
-          printable: htmlContent,
-          type: "raw-html",
-          targetStyles: ["*"],
-        });
-      }
-    </script>
-  </body>
+      printJS({
+        printable: htmlContent,
+        type: "raw-html",
+        targetStyles: ["*"],
+      });
+    }
+  </script>
+</body>
+
 </html>
