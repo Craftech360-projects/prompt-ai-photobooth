@@ -111,8 +111,8 @@
       border-radius: 16px;
       font-size: 30px;
       background-color: transparent;
-      border: 2px solid #fff;
-      color: #fff;
+      border: 2px solid #B6202F;
+      color: #B6202F;
       /* background-color: rgba(189, 65, 187, 0.45); */
       margin-bottom: 20px;
       display: none;
@@ -140,7 +140,7 @@
     }
 
     .prompt-container textarea::placeholder {
-      color: #fff;
+      color: #B6202F;
       position: absolute;
       top: 35%;
       left: 0%;
@@ -164,8 +164,8 @@
 
     #capture {
       background-color: transparent;
-      width: 670px;
-      height: 133px;
+      width: 462px;
+      height: 115px;
       background-image: url(/static/aicp.png);
       background-size: 100% 100%;
       background-repeat: no-repeat;
@@ -216,8 +216,8 @@
 
     #continue {
       background-color: transparent;
-      width: 670px;
-      height: 134px;
+      width: 462px;
+      height: 115px;
       background-image: url(/static/ct.png);
       background-size: 100% 100%;
       background-repeat: no-repeat;
@@ -227,6 +227,13 @@
       margin-top: 50px;
       display: none;
     }
+    #retake-continue-container {
+  display: flex;
+  justify-content: center; /* Aligns buttons in the center */
+  gap: 10px; /* Adds spacing between buttons */
+  margin-top: 10px; /* Adjusts spacing from the captured image */
+}
+
   </style>
 </head>
 
@@ -239,8 +246,11 @@
       </div>
 
       <button id="capture"></button>
-      <button id="retake"></button>
-      <button id="continue" type="button"></button>
+      <div id="retake-continue-container">
+        <button id="retake"></button>
+        <button id="continue" type="button"></button>
+      </div>
+      
       <div class="prompt-container">
         <textarea type="text" name="prompt" id="prompt"
           placeholder="Describe your fantasy character and watch the magic come to life."></textarea>

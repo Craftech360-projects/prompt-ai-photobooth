@@ -58,6 +58,7 @@ def generate_unique_filename():
 
 # Function to generate the target image using AI
 def generate_target_image(custom_prompts=None):
+    ##5940bd855265365e5490344577a80089bc984dfb216a0c2a7a17644e2e6f0cbd48dcb92acd8917122137382dea77493a
     # Replace 'YOUR_API_KEY' with your actual Clipdrop API key
     clipdrop_api_key = '5940bd855265365e5490344577a80089bc984dfb216a0c2a7a17644e2e6f0cbd48dcb92acd8917122137382dea77493a'
 
@@ -66,7 +67,7 @@ def generate_target_image(custom_prompts=None):
     all_prompts = predefined_prompts_str
     if custom_prompts:
         all_prompts += "\n" + custom_prompts
-
+        print(all_prompts)
     # Define the Clipdrop API endpoint URL
     clipdrop_url = 'https://clipdrop-api.co/text-to-image/v1'
 
@@ -120,6 +121,8 @@ def upload_image_to_firebase(result_img_path_temp):
 
     except Exception as e:
         return None
+    
+    
 gfpganer = GFPGANer(model_path='GFPGANv1.4.pth', upscale=1, arch='clean', channel_multiplier=2)
 def enhance_face(image):
     logging.info("Starting face enhancement...")
@@ -134,7 +137,9 @@ def enhance_face(image):
         return restored_img
     else:
         raise ValueError("Enhanced image is not a valid numpy array")
-
+    
+    
+    
 def perform_face_swap(source_img_base64, custom_prompts=None):
     global result_img_path, result_img_path_firebase
 
@@ -178,10 +183,29 @@ def perform_face_swap(source_img_base64, custom_prompts=None):
     # Enhance the swapped face (result_image)
     result_image_enhanced = enhance_face(result_image)
 
-    # Save and upload the final enhanced image
+    # Load the frame image
+    frame_path = 'assets/frame.jpg'
+    frame_img = cv2.imread(frame_path, cv2.IMREAD_UNCHANGED)
+
+    # Resize the result image to fit within the frame
+    frame_height, frame_width = frame_img.shape[:2]
+    # result_image_resized = cv2.resize(result_image_enhanced, (frame_width, frame_height))
+    result_height, result_width = result_image_enhanced.shape[:2]
+    # Calculate the position to center the result image on the frame
+    y_offset = int((frame_height - result_image.shape[0]) * 0.3)
+    x_offset = int((frame_width - result_image.shape[1]) * 0.5)
+
+    # Overlay the result image onto the frame
+     # Overlay the result image onto the frame without changing the aspect ratio
+    for c in range(0, 3):
+        frame_img[y_offset:y_offset+result_height, x_offset:x_offset+result_width, c] = \
+            result_image_enhanced[:, :, c]
+
+
+    # Save and upload the final enhanced image with frame
     unique_filename = generate_unique_filename()
     result_img_path_temp = os.path.join('static', unique_filename)
-    cv2.imwrite(result_img_path_temp, result_image_enhanced, [int(cv2.IMWRITE_PNG_COMPRESSION), 95])
+    cv2.imwrite(result_img_path_temp, frame_img, [int(cv2.IMWRITE_PNG_COMPRESSION), 95])
 
     # Upload the final image to Firebase Storage
     result_img_url_firebase = upload_image_to_firebase(result_img_path_temp)
@@ -205,7 +229,6 @@ def perform_face_swap(source_img_base64, custom_prompts=None):
     with result_lock:
         result_img_path = result_img_path_temp
         result_img_path_firebase = result_img_url_firebase  # Store Firebase URL with token
-
 
 @app.route('/')
 def main():
