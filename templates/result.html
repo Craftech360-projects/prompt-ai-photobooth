@@ -29,7 +29,6 @@
       width: 100vw;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       color: #ffc301;
       margin-top: 172px;
     }
@@ -37,8 +36,8 @@
     .dcf {
       background-color: transparent;
       font-weight: bold;
-      width: 412px;
-      height: 115px;
+      width: 350px;
+      height: 90px;
       border-radius: 16px;
       font-size: 26px;
       border: none;
@@ -63,6 +62,7 @@
       flex-direction: column-reverse;
       align-items: center;
       justify-content: space-around;
+      margin-left: -630px;
     }
 
     .butnsss {
@@ -71,12 +71,13 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      margin-top: 150px;
     }
 
     #printButton {
       background-color: transparent;
       font-weight: bold;
-      width: 700px;
+      width: 500px;
       height: 134px;
       border-radius: 16px;
       font-size: 26px;
@@ -100,6 +101,7 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+      margin-left: 300px;
     }
 
     .qr-container img {
@@ -111,20 +113,19 @@
       height: 750px;
       display: flex;
       justify-content: center;
-      margin-top: 80px;
       /* background-color: #752d2d; */
     }
 
     .image-container img {
-      width: 700px;
-      height: 700px;
+      width: 600px;
+      height: 830px;
       box-shadow: rgba(0, 0, 0) 0px 10px 36px 0px,
         rgba(0, 0, 0) 0px 0px 0px 1px;
       border-radius: 30px;
     }
 
     #heading {
-      color: #fff;
+      color: #B6202F;
       text-align: left;
       font-size: 38px;
       margin-left: 35px;
@@ -142,7 +143,7 @@
     <div class="btns-con">
       <div class="qr-container">
         <img width="255px" src="{{ url_for('static', filename='qr_code.png') }}?r={{ random_value }}" alt="QR Code" />
-        <h2 id="heading">Scan the QR Code <br> to Download Image</h2>
+        <h2 id="heading">Scan the QR Code <br> to Download <br> Image</h2>
       </div>
       <div class="butnsss">
         <button type="button" id="printButton" onclick="printImage()">
