@@ -37,7 +37,7 @@
     }
 
     .submit-c input {
-      width: 670px;
+      width: 655px;
       height: 133px;
       background-color: #ada6b8;
       border-radius: 4px;
@@ -46,7 +46,7 @@
       color: #fff;
       /* border: none; */
       position: absolute;
-      top: 70%;
+      top: 71%;
       left: 50%;
       -ms-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
@@ -109,7 +109,7 @@
       text-align: center;
       height: 300px;
       border-radius: 16px;
-      font-size: 30px;
+      font-size: 40px;
       background-color: transparent;
       border: 2px solid #B6202F;
       color: #B6202F;
@@ -122,10 +122,9 @@
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
       padding: 50px;
       position: absolute;
-      top: 50%;
+      top: 40%;
       left: 50%;
       -ms-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
@@ -146,6 +145,12 @@
       left: 0%;
       font-size: 40px;
     }
+
+    .prompt-container {
+  border: 2px solid #B6202F;
+  border-radius: 16px;
+
+}
 
     .logo-container {
       display: none;
@@ -233,6 +238,13 @@
   gap: 10px; /* Adds spacing between buttons */
   margin-top: 10px; /* Adjusts spacing from the captured image */
 }
+.err{
+  display: flex
+;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: -274px;
+}
 
   </style>
 </head>
@@ -253,7 +265,12 @@
       
       <div class="prompt-container">
         <textarea type="text" name="prompt" id="prompt"
-          placeholder="Describe your fantasy character and watch the magic come to life."></textarea>
+          placeholder="Describe your ultimate sports avatar and watch the magic come to life."></textarea>
+
+      </div>
+      <div class="err">
+        <p id="error-message" style="color: red; font-size: 30px; margin-bottom: 61%;"></p>
+
       </div>
       <div class="submit-c">
         <input type="submit" value="Ai Magic" id="swap-button" />
@@ -336,16 +353,29 @@
       continueButton.style.display = "none";
       document.querySelector('input[name="source"]').remove();
     });
-
+    
     swapButton.addEventListener("click", function (event) {
-      event.preventDefault();
-      loadingSpinner.style.opacity = "1";
-      document.getElementById("loading").classList.remove("hidden");
-      swapButton.disabled = true;
-      setTimeout(function () {
-        swapForm.submit();
-      }, 1000);
-    });
+  event.preventDefault();
+  
+  const promptInput = document.getElementById("prompt").value.trim();
+  const errorMessage = document.getElementById("error-message");
+  
+  if (promptInput === "") {
+    errorMessage.textContent = "Please write a prompt before submitting.";
+    errorMessage.style.color = "red";
+    return;
+  }
+  
+  errorMessage.textContent = "";
+  loadingSpinner.style.opacity = "1";
+  document.getElementById("loading").classList.remove("hidden");
+  swapButton.disabled = true;
+  
+  setTimeout(function () {
+    swapForm.submit();
+  }, 1000);
+});
+
   </script>
 </body>
 

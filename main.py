@@ -36,7 +36,7 @@ def add_header(response):
 # Initialize Firebase with your credentials
 cred = credentials.Certificate('./serviceAccountKey.json')
 firebase_admin.initialize_app(cred, {
-    'storageBucket': 'ai-photo-7495c.appspot.com'
+    'storageBucket': 'fir-basic-d39f6.appspot.com'
 })
 
 # Get a reference to the Firebase Storage bucket
@@ -60,7 +60,7 @@ def generate_unique_filename():
 def generate_target_image(custom_prompts=None):
     ##5940bd855265365e5490344577a80089bc984dfb216a0c2a7a17644e2e6f0cbd48dcb92acd8917122137382dea77493a
     # Replace 'YOUR_API_KEY' with your actual Clipdrop API key
-    clipdrop_api_key = '5940bd855265365e5490344577a80089bc984dfb216a0c2a7a17644e2e6f0cbd48dcb92acd8917122137382dea77493a'
+    clipdrop_api_key = '287e9967894a412606ce693e3ada3e65054ec9120b001c7968d1631a8209dae4be082e26afb8084cd9a13c1390d26dfa'
 
     predefined_prompts_str = "photorealistic concept art, high quality digital art, cinematic, hyperrealism, photorealism, Nikon D850, 8K., sharp focus, emitting diodes, artillery, motherboard, by pascal blanche rutkowski repin artstation hyperrealism painting concept art of detailed character design matte painting, 4 k resolution"
 
@@ -98,6 +98,7 @@ def generate_target_image(custom_prompts=None):
 
 result_img_path_firebase = None
 
+
 # Function to upload an image to Firebase Storage and generate a URL with token
 def upload_image_to_firebase(result_img_path_temp):
     # Generate a unique filename for the swapped image
@@ -106,20 +107,25 @@ def upload_image_to_firebase(result_img_path_temp):
     try:
         # Upload the result image to Firebase Storage
         blob = bucket.blob('ig-ai-images/' + unique_filename)
+        logging.debug(f"Generated blob: {blob}")
         blob.upload_from_filename(result_img_path_temp)
+        logging.debug(f"Uploaded image to Firebase Storage: {result_img_path_temp}")
 
-                # Save a copy of the image locally with the name "print.png"
+        # Save a copy of the image locally with the name "print.png"
         print_img_path_local = os.path.join('static', 'print.png')
         # Copy the result image to the local path
         shutil.copyfile(result_img_path_temp, print_img_path_local)
+        logging.debug(f"Copied image to local path: {print_img_path_local}")
 
         # Get the URL of the uploaded image with a token
         expires_in = datetime.timedelta(days=1)  # Set an expiration time for the token
         url = blob.generate_signed_url(expires_in)
+        logging.debug(f"Generated signed URL: {url}")
 
         return url
 
     except Exception as e:
+        logging.error(f"Error uploading image to Firebase: {e}")
         return None
     
     
