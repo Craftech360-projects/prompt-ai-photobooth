@@ -145,8 +145,9 @@ def process_source_image(source_img_cv):
     logger.info(f"Source image processed to size: {target_width}x{target_height}")
     return resized_img
 
+
 def create_final_image(swapped_image):
-    """Create final 1200x1800 image with frame"""
+    """Create final 1200x1800 image with frame and logo"""
     # Load frame image (should be 1200x1800)
     frame_path = 'assets/frame.jpg'
     frame_img = cv2.imread(frame_path, cv2.IMREAD_UNCHANGED)
@@ -154,6 +155,20 @@ def create_final_image(swapped_image):
     if frame_img is None:
         logger.error("Could not load frame image")
         return None
+    
+    # Load logo image
+    logo_path = 'assets/logo11.png'  # Make sure to place your logo in assets folder
+    logo_img = cv2.imread(logo_path, cv2.IMREAD_UNCHANGED)
+    
+    if logo_img is None:
+        logger.error("Could not load logo image")
+        return None
+    
+    # Resize logo if needed (adjust size as needed)
+    logo_height = 150  # Desired logo height
+    logo_aspect_ratio = logo_img.shape[1] / logo_img.shape[0]
+    logo_width = int(logo_height * logo_aspect_ratio)
+    logo_img = cv2.resize(logo_img, (logo_width, logo_height))
     
     # Ensure frame is 1200x1800
     if frame_img.shape[0] != 1800 or frame_img.shape[1] != 1200:
@@ -163,30 +178,40 @@ def create_final_image(swapped_image):
     # Resize swapped image to fit within frame (maintaining aspect ratio)
     swapped_height, swapped_width = swapped_image.shape[:2]
     
-    # Calculate position to center the swapped image
-    y_offset = (1800 - swapped_height) // 2
+    # Calculate position to center the swapped image horizontally and move it up
+    bottom_margin = 80  # Increased bottom margin
+    y_offset = ((1800 - swapped_height) // 2) - bottom_margin
     x_offset = (1200 - swapped_width) // 2
     
-    # Ensure offsets are positive
-    y_offset = max(0, y_offset)
-    x_offset = max(0, x_offset)
+    # Calculate logo position (top-right corner)
+    logo_margin_right = 130  # Margin from edges
+    logo_margin_top = 130
+    logo_x = 1200 - logo_width - logo_margin_right
+    logo_y = logo_margin_top
     
-    # Overlay the swapped image onto the frame
+    # Convert images to RGBA if needed
     if len(frame_img.shape) == 3 and frame_img.shape[2] == 3:
         frame_img = cv2.cvtColor(frame_img, cv2.COLOR_RGB2RGBA)
     
     if len(swapped_image.shape) == 3 and swapped_image.shape[2] == 3:
         swapped_image = cv2.cvtColor(swapped_image, cv2.COLOR_RGB2RGBA)
     
-    # Composite the images
+    # Composite the swapped image
     for y in range(swapped_height):
         for x in range(swapped_width):
             if y + y_offset < 1800 and x + x_offset < 1200:
-                # Only copy non-transparent pixels
                 if swapped_image[y, x][3] > 0:
                     frame_img[y + y_offset, x + x_offset] = swapped_image[y, x]
     
+    # Composite the logo
+    for y in range(logo_height):
+        for x in range(logo_width):
+            if y + logo_y < 1800 and x + logo_x < 1200:
+                if logo_img[y, x][3] > 0:  # Check logo transparency
+                    frame_img[y + logo_y, x + logo_x] = logo_img[y, x]
+    
     return frame_img
+
 
 def crop_center_width(image):
     """Crop center 60% width of the image and scale up height"""
