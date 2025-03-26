@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, jsonify, redirect, url_for, make_response
 import cv2
 import numpy as np
@@ -22,6 +23,12 @@ from gfpgan import GFPGANer
 
 app = Flask(__name__)
 
+
+# Directory setup
+UPLOAD_FOLDER = 'uploads'
+RESULT_FOLDER = 'results'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(RESULT_FOLDER, exist_ok=True)
 # Disable caching for specific routes
 @app.after_request
 def add_header(response):
@@ -58,32 +65,36 @@ logger = logging.getLogger(__name__)
 
 def generate_unique_filename():
     return str(uuid.uuid4()) + '.png'
-
 def generate_target_image(custom_prompts=None):
-    # "b54780508fd1d61abff1eb2eaa6eaa4b157ffb81e4328a4e7a428cb227cdd89053193f68473f838eb0466c2174195482"
-    clipdrop_api_key = '2cac03e37041e25b2d2931b8e4f5dc991d946f651f0062251f6007c50060f482953b8b19cd3fdee27c85b0d2b51bedb9'
+    clipdrop_api_key = 'b54780508fd1d61abff1eb2eaa6eaa4b157ffb81e4328a4e7a428cb227cdd89053193f68473f838eb0466c2174195482'  # Replace with your actual Clipdrop API key
     predefined_prompts_str = "photorealistic concept art, high quality digital art, cinematic, hyperrealism, photorealism, Nikon D850, 8K., sharp focus, emitting diodes, artillery, motherboard, by pascal blanche rutkowski repin artstation hyperrealism painting concept art of detailed character design matte painting, 4 k resolution"
 
     all_prompts = predefined_prompts_str
     if custom_prompts:
         all_prompts += "\n" + custom_prompts
 
+    clipdrop_url = 'https://clipdrop-api.co/text-to-image/v1'
     headers = {
         'x-api-key': clipdrop_api_key,
         'accept': 'image/webp',
         'x-clipdrop-width': '400',  # Desired width in pixels
         'x-clipdrop-height': '600',  # Desired height in pixels
-       
     }
 
-    data = {'prompt': (None, all_prompts, 'text/plain')}
-    response = requests.post('https://clipdrop-api.co/text-to-image/v1', files=data, headers=headers)
+    data = {
+        'prompt': (None, all_prompts, 'text/plain')
+    }
 
+    response = requests.post(clipdrop_url, files=data, headers=headers)
     if response.ok:
-        with open('static/target_image.webp', 'wb') as f:
+        target_image_path = os.path.join(UPLOAD_FOLDER, 'target_image.webp')
+        with open(target_image_path, 'wb') as f:
             f.write(response.content)
+        logging.info(f"Target image generated and saved to {target_image_path}")
+        return target_image_path
     else:
-        logger.error(f"Failed to generate target image: {response.status_code}")
+        logging.error("Failed to fetch target image from Clipdrop")
+        raise HTTPException(status_code=500, detail="Failed to fetch target image from Clipdrop")
 
 def upload_image_to_firebase(image_path):
     unique_filename = generate_unique_filename()
@@ -188,34 +199,6 @@ def create_final_image(swapped_image):
     
     return frame_img
 
-def crop_center_width(image):
-    """Crop center 60% width of the image and scale up height"""
-    if image is None:
-        logger.error("Invalid image for cropping")
-        return None
-    
-    # Get image dimensions
-    height, width = image.shape[:2]
-    logger.info(f"Original image size: {width}x{height}")
-    
-    # Calculate crop dimensions (60% of width from center)
-    crop_width = int(width * 0.7)  # Changed from 0.9 to 0.6 for more aggressive cropping
-    start_x = (width - crop_width) // 2
-    
-    # Crop the image
-    cropped_img = image[:, start_x:start_x+crop_width]
-    
-    # Scale up height while maintaining aspect ratio
-    target_height = int(height * 1.4)  # Increase height by 20%
-    target_width = int(crop_width * (target_height / height))
-    
-    # Resize the cropped image
-    scaled_img = cv2.resize(cropped_img, (target_width, target_height), 
-                          interpolation=cv2.INTER_LANCZOS4)
-    
-    logger.info(f"Final image size after crop and scale: {target_width}x{target_height}")
-    return scaled_img
-
 def perform_face_swap(source_img_base64, custom_prompts=None):
     global result_img_path, result_img_path_firebase
     
@@ -257,15 +240,8 @@ def perform_face_swap(source_img_base64, custom_prompts=None):
         # Enhance face
         result_image_enhanced = enhance_face(result_image)
         
-        # Crop the enhanced image to 60% width
-        result_image_cropped = crop_center_width(result_image_enhanced)
-        if result_image_cropped is None:
-            logger.error("Failed to crop enhanced image")
-            return
-        
         # Create final composition (1200x1800)
-        final_image = create_final_image(result_image_cropped)
-
+        final_image = create_final_image(result_image_enhanced)
         if final_image is None:
             logger.error("Failed to create final image")
             return

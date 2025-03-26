@@ -22,7 +22,7 @@
       justify-content: center;
       flex-direction: column;
       align-items: center;
-      background-image: url(/static/aibg.png);
+      background-image: url(/static/camera.png);
       background-repeat: no-repeat;
       background-size: cover;
     }
@@ -37,8 +37,8 @@
     }
 
     .submit-c input {
-      width: 670px;
-      height: 133px;
+      width: 370px;
+      height: 125px;
       background-color: #ada6b8;
       border-radius: 4px;
       font-size: 18px;
@@ -109,7 +109,7 @@
       text-align: center;
       height: 300px;
       border-radius: 16px;
-      font-size: 30px;
+      font-size: 45px;
       background-color: transparent;
       border: 2px solid #fff;
       color: #fff;
@@ -164,8 +164,8 @@
 
     #capture {
       background-color: transparent;
-      width: 670px;
-      height: 133px;
+      width: 213px;
+      height: 215px;
       background-image: url(/static/aicp.png);
       background-size: 100% 100%;
       background-repeat: no-repeat;
@@ -176,9 +176,9 @@
     }
 
     #webcam-container {
-      width: 669px;
-      /* Width of the frame */
-      height: 769px;
+      width: 731px;
+      height: 50vh;
+      margin-top: 200px;
       /* Height of the frame */
       border-radius: 30px;
       position: relative;
@@ -202,8 +202,8 @@
 
     #retake {
       background-color: transparent;
-      width: 462px;
-      height: 115px;
+      width: 273px;
+      height: 90px;
       background-image: url(/static/retake.png);
       background-size: 100% 100%;
       background-repeat: no-repeat;
@@ -216,8 +216,8 @@
 
     #continue {
       background-color: transparent;
-      width: 670px;
-      height: 134px;
+      width: 485px;
+      height: 150px;
       background-image: url(/static/ct.png);
       background-size: 100% 100%;
       background-repeat: no-repeat;
@@ -236,14 +236,16 @@
       <div id="webcam-container">
         <video id="webcam" autoplay></video>
         <img id="captured-image" style="display: none" alt="Captured Image" />
-      </div>
 
+
+      </div>
       <button id="capture"></button>
       <button id="retake"></button>
       <button id="continue" type="button"></button>
+ 
       <div class="prompt-container">
         <textarea type="text" name="prompt" id="prompt"
-          placeholder="Describe your fantasy character and watch the magic come to life."></textarea>
+          placeholder=" Prompts Like superhero, Cyberpunk Avatar, Mystical Being, Anime Legend"></textarea>
       </div>
       <div class="submit-c">
         <input type="submit" value="Ai Magic" id="swap-button" />

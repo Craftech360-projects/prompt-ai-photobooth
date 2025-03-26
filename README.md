@@ -85,62 +85,6 @@ Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in c:\users\dhrit\desktop\a
 Requirement already satisfied: requests in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torchvision==0.15.2) (2.32.3)
 Requirement already satisfied: MarkupSafe>=2.0 in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from jinja2->torch==2.0.1) (3.0.2)
 Requirement already satisfied: idna<4,>=2.5 in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from requests->torchvision==0.15.2) (3.10)
-    return _bootstrap._gcd_import(name[level:], package, level)
-  File "C:\Users\dhrit\Desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages\basicsr\data\realesrgan_dataset.py", line 11, in <module>
-    from basicsr.data.degradations import circular_lowpass_kernel, random_mixed_kernels
-  File "C:\Users\dhrit\Desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages\basicsr\data\degradations.py", line 8, in <module>
-    from torchvision.transforms.functional_tensor import rgb_to_grayscale
-ModuleNotFoundError: No module named 'torchvision.transforms.functional_tensor'
-
-step 3 
-
-
-(env) PS C:\Users\dhrit\Desktop\allprojects\photov4\prompt-ai-photobooth> python -m pip install torch==2.0.1 torchvision==0.15.2 --extra-index-url https://download.pytorch.org/whl/cu118
-Looking in indexes: https://pypi.org/simple, https://download.pytorch.org/whl/cu118
-Collecting torch==2.0.1
-  Downloading https://download.pytorch.org/whl/cu118/torch-2.0.1%2Bcu118-cp39-cp39-win_amd64.whl (2619.2 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.6/2.6 GB 452.5 kB/s eta 0:00:00
-Collecting torchvision==0.15.2
-  Downloading https://download.pytorch.org/whl/cu118/torchvision-0.15.2%2Bcu118-cp39-cp39-win_amd64.whl (4.9 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 3.5 MB/s eta 0:00:00
-Requirement already satisfied: jinja2 in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torch==2.0.1) (3.1.4)
-Requirement already satisfied: typing-extensions in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torch==2.0.1) (4.12.2)
-Requirement already satisfied: networkx in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torch==2.0.1) (3.2.1)
-Requirement already satisfied: sympy in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torch==2.0.1) (1.13.1)
-Requirement already satisfied: filelock in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torch==2.0.1) (3.16.1)
-Requirement already satisfied: numpy in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torchvision==0.15.2) (1.26.4)
-Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torchvision==0.15.2) (11.0.0)
-Requirement already satisfied: requests in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torchvision==0.15.2) (2.32.3)
-Requirement already satisfied: MarkupSafe>=2.0 in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from jinja2->torch==2.0.1) (3.0.2)
-Requirement already satisfied: idna<4,>=2.5 in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from requests->torchvision==0.15.2) (3.10)
-  File "C:\Users\dhrit\Desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages\basicsr\data\realesrgan_dataset.py", line 11, in <module>
-    from basicsr.data.degradations import circular_lowpass_kernel, random_mixed_kernels
-  File "C:\Users\dhrit\Desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages\basicsr\data\degradations.py", line 8, in <module>
-    from torchvision.transforms.functional_tensor import rgb_to_grayscale
-ModuleNotFoundError: No module named 'torchvision.transforms.functional_tensor'
-
-step 4  
-
-
-
-(env) PS C:\Users\dhrit\Desktop\allprojects\photov4\prompt-ai-photobooth> python -m pip install torch==2.0.1 torchvision==0.15.2 --extra-index-url https://download.pytorch.org/whl/cu118
-Looking in indexes: https://pypi.org/simple, https://download.pytorch.org/whl/cu118
-Collecting torch==2.0.1
-  Downloading https://download.pytorch.org/whl/cu118/torch-2.0.1%2Bcu118-cp39-cp39-win_amd64.whl (2619.2 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.6/2.6 GB 452.5 kB/s eta 0:00:00
-Collecting torchvision==0.15.2
-  Downloading https://download.pytorch.org/whl/cu118/torchvision-0.15.2%2Bcu118-cp39-cp39-win_amd64.whl (4.9 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 3.5 MB/s eta 0:00:00
-Requirement already satisfied: jinja2 in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torch==2.0.1) (3.1.4)
-Requirement already satisfied: typing-extensions in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torch==2.0.1) (4.12.2)
-Requirement already satisfied: networkx in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torch==2.0.1) (3.2.1)
-Requirement already satisfied: sympy in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torch==2.0.1) (1.13.1)
-Requirement already satisfied: filelock in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torch==2.0.1) (3.16.1)
-Requirement already satisfied: numpy in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torchvision==0.15.2) (1.26.4)
-Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torchvision==0.15.2) (11.0.0)
-Requirement already satisfied: requests in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from torchvision==0.15.2) (2.32.3)
-Requirement already satisfied: MarkupSafe>=2.0 in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from jinja2->torch==2.0.1) (3.0.2)
-Requirement already satisfied: idna<4,>=2.5 in c:\users\dhrit\desktop\allprojects\photov4\prompt-ai-photobooth\env\lib\site-packages (from requests->torchvision==0.15.2) (3.10)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.6/2.6 GB 452.5 kB/s eta 0:00:00
 Collecting torchvision==0.15.2
   Downloading https://download.pytorch.org/whl/cu118/torchvision-0.15.2%2Bcu118-cp39-cp39-win_amd64.whl (4.9 MB)

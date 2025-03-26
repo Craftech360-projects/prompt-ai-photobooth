@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ai Photobhoot</title>
+    <title>AI Photobooth</title>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
         body {
@@ -17,7 +17,7 @@
             font-family: "Poppins", sans-serif;
         }
         .button {
-            width: 650px;
+            width: 450px;
             height: 156px;
             background-color: transparent;
             border-radius: 6px;
@@ -27,44 +27,9 @@
             background-position: center;
             border: none;
             cursor: pointer;
-        }
-        .logo-container {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            margin: 40px;
+            margin-top: 434px;
 
-        }
-        #inputname::placeholder,
-        #inputemail::placeholder {
-            color: #fff;
 
-        }
-        #inputname:focus,
-        #inputemail:focus {
-            outline: none;
-        }
-        #inputname {
-            border-radius: 36px;
-            background-color: transparent;
-            color: #fff;
-            height: 125px;
-            border: 1px solid #fff;
-            width: 650px;
-            text-transform: capitalize;
-            text-align: center;
-            font-size: 50px;
-        }
-        #inputemail {
-            border-radius: 36px;
-            background-color: transparent;
-            color: #fff;
-            height: 125px;
-            border: 1px solid #fff;
-            width: 650px;
-            text-align: center;
-            font-size: 50px;
         }
         form {
             width: 100vw;
@@ -73,6 +38,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+
         }
         h1 {
             color: #fff;
@@ -81,13 +47,9 @@
         }
     </style>
 </head>
-
 <body>
-    <form action="/index" method="post" id="name-form">
-        <h1>AI Photobooth</h1>
-        <input id="inputname" name="name" placeholder="Enter Your Name" required><br><br>
-        <input id="inputemail" type="email" name="email" placeholder="Enter Your Email" required><br><br>
+    <form action="/index" method="post">
         <button class="button" type="submit"></button>
     </form>
 </body>
-</html
+</html>
