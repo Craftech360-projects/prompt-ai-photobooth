@@ -61,7 +61,7 @@ def generate_unique_filename():
 
 def generate_target_image(custom_prompts=None):
     # "b54780508fd1d61abff1eb2eaa6eaa4b157ffb81e4328a4e7a428cb227cdd89053193f68473f838eb0466c2174195482"
-    clipdrop_api_key = '2cac03e37041e25b2d2931b8e4f5dc991d946f651f0062251f6007c50060f482953b8b19cd3fdee27c85b0d2b51bedb9'
+    clipdrop_api_key = 'b54780508fd1d61abff1eb2eaa6eaa4b157ffb81e4328a4e7a428cb227cdd89053193f68473f838eb0466c2174195482'
     predefined_prompts_str = "photorealistic concept art, high quality digital art, cinematic, hyperrealism, photorealism, Nikon D850, 8K., sharp focus, emitting diodes, artillery, motherboard, by pascal blanche rutkowski repin artstation hyperrealism painting concept art of detailed character design matte painting, 4 k resolution"
 
     all_prompts = predefined_prompts_str
